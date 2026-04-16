@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>青粿制造局 - 春日限定，匠心手作</title>
+    <style>
+        /* --- 基础重置 --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: "Microsoft YaHei", Arial, sans-serif; background-color: #f4f4f4; color: #333; }
+        a { text-decoration: none; color: #333; }
+        ul { list-style: none; }
+
+        /* --- 顶部导航条 --- */
+        .top-bar { background-color: #fff; border-bottom: 1px solid #ddd; padding: 10px 0; font-size: 12px; }
+        .container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 10px; }
+        .top-nav { display: flex; justify-content: space-between; }
+        .top-nav a { margin-left: 10px; color: #999; }
+
+        /* --- 头部区域 (Logo + 搜索) --- */
+        .header { background-color: #fff; padding: 20px 0; }
+        .header-main { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+        .logo { font-size: 36px; color: #4F7942; font-weight: bold; cursor: pointer; }
+        .search-box { display: flex; width: 500px; max-width: 100%; }
+        .search-input { flex: 1; padding: 10px; border: 2px solid #4F7942; border-radius: 20px 0 0 20px; outline: none; }
+        .search-btn { background-color: #4F7942; color: #fff; border: none; padding: 0 20px; border-radius: 0 20px 20px 0; cursor: pointer; font-weight: bold; }
+        .hot-search { font-size: 12px; color: #666; margin-top: 5px; width: 100%; }
+        .hot-search span { color: #4F7942; margin-right: 10px; cursor: pointer; }
+
+        /* --- 导航菜单 --- */
+        .nav-menu { background-color: #4F7942; color: #fff; }
+        .nav-list { display: flex; flex-wrap: wrap; gap: 10px; }
+        .nav-item { padding: 10px 15px; cursor: pointer; font-weight: bold; font-size: 0.95rem; }
+        .nav-item:hover { background-color: #3d5e35; }
+
+        /* --- 主体内容区 (调整布局) --- */
+        .main-content { display: flex; margin-top: 10px; flex-wrap: wrap; gap: 10px; }
+
+        /* 左侧分类 */
+        .sidebar { width: 200px; background-color: #fff; padding: 10px; border-radius: 8px; flex-shrink: 0; }
+        .category-item { padding: 10px 0; border-bottom: 1px solid #f0f0f0; font-size: 14px; cursor: pointer; transition: color 0.2s; }
+        .category-item:hover { color: #4F7942; }
+
+        /* ========== 中间主图卡片（可点击式入口） ========== */
+        .promo-card {
+            flex: 1;
+            min-width: 300px;
+            height: 400px;
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .promo-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .promo-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .promo-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.5));
+            color: white;
+            z-index: 2;
+        }
+
+        .promo-overlay h2 {
+            font-size: 32px;
+            margin-bottom: 12px;
+            font-weight: bold;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .promo-overlay p {
+            font-size: 18px;
+            max-width: 70%;
+            opacity: 0.95;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+        }
+
+        .promo-btn {
+            margin-top: 20px;
+            background-color: #4F7942;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            z-index: 3;
+        }
+
+        .promo-btn:hover {
+            background-color: #3d5e35;
+            transform: scale(1.05);
+        }
+
+        /* 右侧轮播 (自动切换) */
+        .side-carousel {
+            width: 280px;
+            height: 400px;
+            background-color: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+            flex-shrink: 0;
+            cursor: pointer;
+        }
+
+        .carousel-slide {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            transition: opacity 0.6s ease-in-out;
+        }
+
+        .carousel-slide.active {
+            opacity: 1;
+        }
+
+        .carousel-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* 轮播圆点指示器 */
+        .carousel-dots {
+            position: absolute;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 6px;
+            z-index: 3;
+        }
+
+        .carousel-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .carousel-dot.active {
+            background-color: #fff;
+        }
+
+        /* --- 特色服务栏 --- */
+        .feature-section {
+            margin-top: 20px;
+            background-color: #fff;
+            padding: 15px;
+            border-radius: 8px;
+        }
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        .feature-item {
+            text-align: center;
+            padding: 15px;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+        }
+        .feature-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .feature-icon {
+            font-size: 32px;
+            color: #4F7942;
+            margin-bottom: 10px;
+        }
+        .feature-title {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .feature-desc {
+            font-size: 12px;
+            color: #666;
+        }
+
+        /* --- 商品推荐区 --- */
+        .recommend-section { margin-top: 20px; background-color: #fff; padding: 20px; border-radius: 8px; }
+        .section-title { font-size: 20px; border-left: 5px solid #4F7942; padding-left: 10px; margin-bottom: 20px; }
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; }
+        .product-card { width: 100%; border: 1px solid #eee; border-radius: 8px; overflow: hidden; transition: box-shadow 0.3s; cursor: pointer; }
+        .product-card:hover { box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        .product-img-container { width: 100%; height: 200px; background-size: cover; background-position: center; display: flex; align-items: center; justify-content: center; color: #999; }
+        .product-info { padding: 10px; }
+        .product-price { color: #e67e22; font-size: 18px; font-weight: bold; }
+        .product-name { font-size: 14px; margin: 5px 0; line-height: 1.4; }
+
+        /* --- 用户面板 --- */
+        .user-panel {
+            width: 220px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            margin-top: 20px;
+            margin-left: auto;
+        }
+        .avatar {
+            width: 80px;
+            height: 80px;
+            background-color: #f0f0f0;
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-size: 24px;
+        }
+        .login-btn {
+            background-color: #4F7942;
+            color: #fff;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 15px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+        }
+        .login-btn:hover {
+            background-color: #3d5e35;
+        }
+        .user-links {
+            margin-top: 15px;
+            text-align: left;
+            font-size: 14px;
+        }
+        .user-links a {
+            display: block;
+            color: #4F7942;
+            margin: 8px 0;
+        }
+        .user-links a:hover {
+            text-decoration: underline;
+        }
+
+        /* 响应式媒体查询 */
+        @media (max-width: 768px) {
+            .container { padding: 0 5px; }
+            .header-main { flex-direction: column; align-items: stretch; }
+            .logo { text-align: center; margin-bottom: 10px; }
+            .search-box { width: 100%; }
+            .main-content { flex-direction: column; }
+            .sidebar,
+            .promo-card,
+            .side-carousel { width: 100%; }
+            .promo-card,
+            .side-carousel { height: 250px; }
+            .product-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
+            .user-panel { width: 100%; margin-left: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 顶部工具栏 -->
+    <div class="top-bar">
+        <div class="container top-nav">
+            <div class="left">中国大陆 | 亲，请登录 <a href="login.html">免费注册</a></div>
+            <div class="right">
+                <a href="order.html">我的订单</a>
+                <a href="cart.html">购物车</a>
+                <a href="favorites.html">收藏夹</a>
+                <a href="help.html">帮助中心</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 头部搜索区 -->
+    <header class="header">
+        <div class="container header-main">
+            <div class="logo" onclick="window.location.href='index.html'">青粿制造局</div>
+            <div>
+                <div class="search-box">
+                    <input type="text" class="search-input" placeholder="搜索春日限定青粿、时令小吃...">
+                    <button class="search-btn" onclick="searchProducts()">搜索</button>
+                </div>
+                <div class="hot-search">
+                    <p>热搜词：</p>
+                    <span onclick="searchKeyword('知味观青粿')">知味观青粿</span>
+                    <span onclick="searchKeyword('雪菜笋肉馅')">雪菜笋肉馅</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 导航菜单 -->
+    <nav class="nav-menu">
+        <div class="container">
+            <ul class="nav-list">
+                <li class="nav-item" onclick="window.location.href='index.html'">首页</li>
+                <li class="nav-item" onclick="window.location.href='category.html?name=春日限定'">春日限定</li>
+                <li class="nav-item" onclick="window.location.href='category.html?name=经典口味'">经典口味</li>
+                <li class="nav-item" onclick="window.location.href='category.html?name=礼盒装'">礼盒装</li>
+                <li class="nav-item" onclick="window.location.href='about.html#craftsmanship'">匠心工艺</li>
+                <li class="nav-item" onclick="window.location.href='about.html'">品牌故事</li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- 主体区域 -->
+    <div class="container main-content">
+        <!-- 左侧分类 -->
+        <aside class="sidebar">
+            <div class="category-item" onclick="window.location.href='category.html?name=艾草系列'">艾草系列</div>
+            <div class="category-item" onclick="window.location.href='category.html?name=咸味青粿'">咸味青粿</div>
+            <div class="category-item" onclick="window.location.href='category.html?name=甜味青粿'">甜味青粿</div>
+            <div class="category-item" onclick="window.location.href='category.html?name=传统手工'">传统手工</div>
+            <div class="category-item" onclick="window.location.href='category.html?name=时令蔬菜'">时令蔬菜</div>
+            <div class="category-item" onclick="window.location.href='category.html?name=速冻保鲜'">速冻保鲜</div>
+        </aside>
+
+        <!-- ========== 中间主图卡片 ========== -->
+        <div class="promo-card" onclick="window.location.href='about.html'">
+            <img src="img/主图.png" alt="匠心手作 · 春日青粿" class="promo-img">
+            <div class="promo-overlay">
+                <h2>匠心传承</h2>
+                <p>精选优质艾草，古法手作，每一口都是春天的味道。</p>
+                <button class="promo-btn" onclick="event.stopPropagation(); window.location.href='category.html?name=全部商品'">立即探索</button>
+            </div>
+        </div>
+
+        <!-- 右侧自动轮播海报 -->
+        <div class="side-carousel">
+            <div class="carousel-slide active" onclick="window.location.href='product.html?id=1'">
+                <img src="img/海报1.jpg" alt="春日美味 踏青食光">
+            </div>
+            <div class="carousel-slide" onclick="window.location.href='product.html?id=2'">
+                <img src="img/海报2.jpg" alt="艾草清香 一口青粿">
+            </div>
+            <div class="carousel-slide" onclick="window.location.href='product.html?id=3'">
+                <img src="img/海报3.png" alt="江南风味 时令小食">
+            </div>
+            <!-- 圆点指示器 -->
+            <div class="carousel-dots">
+                <span class="carousel-dot active" data-target="0"></span>
+                <span class="carousel-dot" data-target="1"></span>
+                <span class="carousel-dot" data-target="2"></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 特色服务栏 -->
+    <div class="container feature-section">
+        <h2 class="section-title">为您服务</h2>
+        <div class="feature-grid">
+            <div class="feature-item" onclick="window.location.href='shipping.html'">
+                <div class="feature-icon">🚚</div>
+                <div class="feature-title">全国包邮</div>
+                <div class="feature-desc">满99元享全国包邮</div>
+            </div>
+            <div class="feature-item" onclick="window.location.href='logistics.html'">
+                <div class="feature-icon">❄️</div>
+                <div class="feature-title">冷链配送</div>
+                <div class="feature-desc">新鲜锁鲜，安全到家</div>
+            </div>
+            <div class="feature-item" onclick="window.location.href='packaging.html'">
+                <div class="feature-icon">📦</div>
+                <div class="feature-title">精美包装</div>
+                <div class="feature-desc">礼盒装，送礼有面子</div>
+            </div>
+            <div class="feature-item" onclick="window.location.href='after-sales.html'">
+                <div class="feature-icon">🔄</div>
+                <div class="feature-title">售后无忧</div>
+                <div class="feature-desc">7天无理由退换</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 猜你喜欢/商品展示 -->
+    <div class="container recommend-section">
+        <h2 class="section-title">春日好物</h2>
+        <div class="product-grid">
+            <!-- 商品卡片 1 -->
+            <div class="product-card" onclick="window.location.href='product.html?id=1'">
+                <div class="product-img-container" style="background-image: url(img/雪菜笋肉.png);"></div>
+                <div class="product-info">
+                    <div class="product-price">¥29.9</div>
+                    <div class="product-name">【春日限定】知味观雪菜笋肉青粿 300g/6只装</div>
+                </div>
+            </div>
+            <!-- 商品卡片 2 -->
+            <div class="product-card" onclick="window.location.href='product.html?id=2'">
+                <div class="product-img-container" style="background-image: url(img/笋肉三丁.png);"></div>
+                <div class="product-info">
+                    <div class="product-price">¥35.5</div>
+                    <div class="product-name">笋肉三丁馅青粿 传统江南风味 300g/6只</div>
+                </div>
+            </div>
+            <!-- 商品卡片 3 -->
+            <div class="product-card" onclick="window.location.href='product.html?id=3'">
+                <div class="product-img-container" style="background-image: url(img/礼盒装.jpg);"></div>
+                <div class="product-info">
+                    <div class="product-price">¥45.0</div>
+                    <div class="product-name">青粿礼盒装 手工制作 送礼佳品</div>
+                </div>
+            </div>
+            <!-- 商品卡片 4 -->
+            <div class="product-card" onclick="window.location.href='product.html?id=4'">
+                <div class="product-img-container" style="background-image: url(img/艾草粉.png);"></div>
+                <div class="product-info">
+                    <div class="product-price">¥22.8</div>
+                    <div class="product-name">艾草精粉 自制青粿必备原料 100g</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 用户面板 -->
+    <div class="container">
+        <div class="user-panel">
+            <div class="avatar">👤</div>
+            <p>Hi，欢迎来到青粿制造局</p>
+            <button class="login-btn" onclick="window.location.href='login.html'">立即登录</button>
+            <div class="user-links">
+                <a href="history.html">👀 浏览历史</a>
+                <a href="favorites.html">❤️ 我的收藏</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 右侧轮播逻辑
+        document.addEventListener('DOMContentLoaded', function () {
+            const slides = document.querySelectorAll('.carousel-slide');
+            const dots = document.querySelectorAll('.carousel-dot');
+            const totalSlides = slides.length;
+            let currentIndex = 0;
+
+            function showSlide(index) {
+                if (index < 0) index = totalSlides - 1;
+                if (index >= totalSlides) index = 0;
+                currentIndex = index;
+
+                slides.forEach(slide => slide.classList.remove('active'));
+                dots.forEach(dot => dot.classList.remove('active'));
+
+                slides[currentIndex].classList.add('active');
+                dots[currentIndex].classList.add('active');
+            }
+
+            // 自动播放
+            let carouselInterval = setInterval(() => {
+                showSlide(currentIndex + 1);
+            }, 5000);
+
+            // 点击圆点切换
+            dots.forEach((dot, index) => {
+                dot.addEventListener('click', () => {
+                    showSlide(index);
+                    clearInterval(carouselInterval);
+                    carouselInterval = setInterval(() => {
+                        showSlide(currentIndex + 1);
+                    }, 5000);
+                });
+            });
+
+            // 鼠标悬停暂停
+            const carousel = document.querySelector('.side-carousel');
+            carousel.addEventListener('mouseenter', () => {
+                clearInterval(carouselInterval);
+            });
+            carousel.addEventListener('mouseleave', () => {
+                carouselInterval = setInterval(() => {
+                    showSlide(currentIndex + 1);
+                }, 5000);
+            });
+        });
+
+        // 搜索功能
+        function searchProducts() {
+            const query = document.querySelector('.search-input').value.trim();
+            if (query) {
+                window.location.href = `search.html?q=${encodeURIComponent(query)}`;
+            } else {
+                alert('请输入搜索关键词');
+            }
+        }
+
+        function searchKeyword(keyword) {
+            window.location.href = `search.html?q=${encodeURIComponent(keyword)}`;
+        }
+    </script>
+</body>
+</html>
