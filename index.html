@@ -142,9 +142,9 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* ========== 右侧轮播组件 ========== */
+        /* ========== 右侧轮播组件（加宽至300px） ========== */
         .side-carousel {
-            width: 280px;
+            width: 280px; /* 关键：从220px → 300px */
             height: 400px;
             position: relative;
             overflow: hidden;
@@ -364,81 +364,104 @@
             transform: scale(1.05);
         }
 
-        /* --- 用户面板 --- */
-        .user-panel {
-            width: 220px;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
+        /* ========== 登录面板（按你图示样式） ========== */
+        .login-panel {
+            background: white;
+            border-radius: 12px;
+            padding: 30px 20px;
             text-align: center;
-            margin-top: 20px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+            margin-top: 30px;
+            max-width: 300px;
             margin-left: auto;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            margin-right: auto;
         }
-        .avatar {
+
+        .login-avatar {
             width: 80px;
             height: 80px;
             background: linear-gradient(135deg, #4F7942, #6ab04c);
             border-radius: 50%;
-            margin: 0 auto 15px;
-            display: flex; 
-            align-items: center; 
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
             justify-content: center;
             color: white;
-            font-size: 32px;
+            font-size: 36px;
             font-weight: bold;
-            border: 3px solid #fff;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 15px rgba(79, 121, 66, 0.3);
         }
-        .user-panel h3 {
-            font-size: 18px;
-            margin-bottom: 15px;
+
+        .login-title {
+            font-size: 22px;
+            font-weight: bold;
             color: #333;
+            margin-bottom: 12px;
         }
+
+        .login-subtitle {
+            font-size: 16px;
+            color: #666;
+            line-height: 1.5;
+            margin-bottom: 25px;
+        }
+
         .login-btn {
             background-color: #4F7942;
-            color: #fff;
+            color: white;
             border: none;
-            padding: 10px 20px;
-            border-radius: 25px;
+            padding: 14px 30px;
+            border-radius: 28px;
+            font-size: 16px;
+            font-weight: bold;
             cursor: pointer;
             width: 100%;
-            margin-top: 10px;
-            font-weight: bold;
-            transition: all 0.3s;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(79, 121, 66, 0.25);
         }
+
         .login-btn:hover {
             background-color: #3d5e35;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 18px rgba(79, 121, 66, 0.35);
         }
-        .user-links {
-            margin-top: 20px;
+
+        .login-links {
+            margin-top: 25px;
             text-align: left;
             font-size: 14px;
-            padding-top: 15px;
-            border-top: 1px dashed #eee;
         }
-        .user-links a {
-            display: block;
+
+        .login-links li {
+            padding: 12px 0;
+            border-bottom: 1px dashed #f0f0f0;
+            display: flex;
+            align-items: center;
+        }
+
+        .login-links li:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .login-links i {
+            margin-right: 12px;
+            font-size: 18px;
             color: #4F7942;
-            margin: 10px 0;
-            padding: 5px 0;
+            width: 24px;
+            text-align: center;
+        }
+
+        .login-links a {
+            color: #4F7942;
+            flex: 1;
             transition: all 0.2s;
-            position: relative;
-            padding-left: 20px;
         }
-        .user-links a::before {
-            content: '•';
-            position: absolute;
-            left: 0;
-            color: #4F7942;
-        }
-        .user-links a:hover {
-            text-decoration: underline;
+
+        .login-links a:hover {
             color: #3d5e35;
-            padding-left: 25px;
+            text-decoration: underline;
+            padding-left: 5px;
         }
 
         /* --- 页脚 --- */
@@ -446,7 +469,7 @@
             background-color: #2c3e50;
             color: #ecf0f1;
             padding: 40px 0 20px;
-            margin-top: 30px;
+            margin-top: 40px;
         }
         .footer-content {
             display: grid;
@@ -511,7 +534,7 @@
 
         /* 响应式媒体查询 */
         @media (max-width: 900px) {
-            .sidebar, .user-panel {
+            .sidebar, .side-carousel, .login-panel {
                 width: 100%;
                 margin-left: 0;
             }
@@ -522,9 +545,10 @@
                 height: 300px;
             }
             .side-carousel {
-                width: 100%;
-                height: 200px;
-                order: -1; /* 移动到顶部 */
+                height: 250px;
+            }
+            .login-panel {
+                max-width: 100%;
             }
         }
 
@@ -547,7 +571,8 @@
             .section-title { font-size: 18px; }
             .product-name { font-size: 13px; height: 36px; }
             .product-price { font-size: 16px; }
-            .avatar { width: 60px; height: 60px; font-size: 24px; }
+            .login-avatar { width: 60px; height: 60px; font-size: 28px; }
+            .login-btn { padding: 12px 20px; font-size: 14px; }
         }
     </style>
 </head>
@@ -618,7 +643,7 @@
             </div>
         </div>
 
-        <!-- ========== 右侧轮播 ========== -->
+        <!-- ========== 右侧轮播（宽280px） ========== -->
         <div class="side-carousel">
             <div class="carousel-slide active">
                 <img src="banner1.jpg" alt="春日限定礼盒" onerror="handleImageError(this, 'banner1.jpg')">
@@ -661,20 +686,6 @@
                     <div class="feature-title">在线定制</div>
                     <div class="feature-desc">个性化定制您的专属青粿</div>
                 </div>
-            </div>
-        </div>
-
-        <!-- 用户面板 -->
-        <div class="user-panel">
-            <div class="avatar">青</div>
-            <h3>欢迎光临青粿制造局</h3>
-            <p>传承千年糕点工艺，品味春天的味道</p>
-            <button class="login-btn">登录/注册</button>
-            <div class="user-links">
-                <a href="history.html">🔍 浏览历史</a>
-                <a href="favorite.html">❤️ 我的收藏</a>
-                <a href="coupon.html">🎫 优惠券</a>
-                <a href="help.html">❓ 帮助中心</a>
             </div>
         </div>
 
@@ -735,13 +746,40 @@
                         <div class="product-badge">限量</div>
                     </div>
                     <div class="product-info">
-                        <div class="product-name">清明节特供青粿礼盒</div>
+                        <div class="product-name">清明节特供</div>
                         <div class="product-rating">★★★★★ 5.0</div>
                         <div class="product-price">¥158.0</div>
                         <button class="add-to-cart">加入购物车</button>
                     </div>
                 </div>
             </div>
+        </div>
+
+        <!-- ========== 登录面板（放在推荐区下方） ========== -->
+        <div class="login-panel">
+            <div class="login-avatar">青</div>
+            <h3 class="login-title">欢迎光临青粿制造局</h3>
+            <p class="login-subtitle">传承千年糕点工艺，品味春天的味道</p>
+            <button class="login-btn">登录/注册</button>
+            
+            <ul class="login-links">
+                <li>
+                    <i>🔍</i>
+                    <a href="history.html">浏览历史</a>
+                </li>
+                <li>
+                    <i>❤️</i>
+                    <a href="favorite.html">我的收藏</a>
+                </li>
+                <li>
+                    <i>🎫</i>
+                    <a href="coupon.html">优惠券</a>
+                </li>
+                <li>
+                    <i>❓</i>
+                    <a href="help.html">帮助中心</a>
+                </li>
+            </ul>
         </div>
     </div>
 
@@ -802,47 +840,63 @@
     <!-- JavaScript 交互 -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // 通用图片错误处理函数
+            // 通用图片错误处理函数（严格按图二文件名）
             window.handleImageError = function(img, originalSrc) {
-                // 1. 尝试移除任何路径前缀
+                // 文件名映射（确保匹配图二）
+                const fileNameMap = {
+                    'main.png': 'main.png',
+                    'banner1.jpg': 'banner1.jpg',
+                    'banner2.jpg': 'banner2.jpg',
+                    'banner3.jpg': 'banner3.jpg',
+                    'gift.jpg': 'gift.jpg',
+                    'snow.png': 'snow.png',
+                    'sunrou.png': 'sunrou.png',
+                    'aicaofen.png': 'aicaofen.png'
+                };
+
+                // 尝试原始文件名
+                if (fileNameMap[originalSrc]) {
+                    const testImg = new Image();
+                    testImg.onload = () => {
+                        img.src = fileNameMap[originalSrc];
+                        console.log(`✅ 图片修复成功: ${fileNameMap[originalSrc]}`);
+                    };
+                    testImg.onerror = () => {
+                        showPlaceholder(img, originalSrc);
+                    };
+                    testImg.src = fileNameMap[originalSrc];
+                    return;
+                }
+
+                // 备用：尝试小写 + 常见扩展名
                 const cleanSrc = originalSrc.split('/').pop();
-                
-                // 2. 尝试不同的文件名变体
                 const candidates = [
-                    cleanSrc,                              // product1.jpg
-                    cleanSrc.toLowerCase(),                // product1.jpg (确保小写)
-                    cleanSrc.replace('.jpg', '.JPG'),      // product1.JPG
-                    cleanSrc.replace('.jpg', '.jpeg'),     // product1.jpeg
-                    cleanSrc.replace('.jpg', '.png'),      // product1.png
-                    cleanSrc.replace('.jpg', '.gif')       // product1.gif
+                    cleanSrc,
+                    cleanSrc.toLowerCase(),
+                    cleanSrc.replace('.jpg', '.JPG'),
+                    cleanSrc.replace('.png', '.PNG'),
+                    cleanSrc.replace('.jpg', '.jpeg'),
+                    cleanSrc.replace('.png', '.jpg')
                 ];
-                
-                // 3. 尝试下一个候选路径
+
                 let currentIndex = 0;
-                
-                function tryNextCandidate() {
+                function tryNext() {
                     if (currentIndex >= candidates.length) {
-                        // 所有尝试都失败，显示占位图
                         showPlaceholder(img, originalSrc);
                         return;
                     }
-                    
-                    const candidate = candidates[currentIndex];
-                    currentIndex++;
-                    
-                    // 创建临时图片测试
+                    const candidate = candidates[currentIndex++];
                     const testImg = new Image();
-                    testImg.onload = function() {
+                    testImg.onload = () => {
                         img.src = candidate;
                         console.log(`✅ 图片修复成功: ${candidate}`);
                     };
-                    testImg.onerror = tryNextCandidate;
+                    testImg.onerror = tryNext;
                     testImg.src = candidate;
                 }
-                
-                tryNextCandidate();
+                tryNext();
             };
-            
+
             // 显示占位图
             function showPlaceholder(img, originalSrc) {
                 const fileName = originalSrc.split('/').pop().replace(/\.[^/.]+$/, "");
@@ -851,7 +905,7 @@
                 img.style.backgroundColor = '#f8fff8';
                 console.error(`❌ 所有图片路径尝试失败: ${originalSrc}`);
             }
-            
+
             // ========== 右侧轮播功能 ========== 
             const carousel = document.querySelector('.side-carousel');
             if (carousel) {
@@ -859,50 +913,44 @@
                 const dots = carousel.querySelectorAll('.carousel-dot');
                 let currentSlide = 0;
                 let autoSlideInterval;
-                
+
                 function showSlide(index) {
-                    // 隐藏所有幻灯片
                     slides.forEach(slide => slide.classList.remove('active'));
                     dots.forEach(dot => dot.classList.remove('active'));
-                    
-                    // 显示当前幻灯片
                     slides[index].classList.add('active');
                     dots[index].classList.add('active');
                     currentSlide = index;
                 }
-                
-                // 圆点点击事件
+
+                // 圆点点击
                 dots.forEach((dot, index) => {
                     dot.addEventListener('click', () => {
                         showSlide(index);
-                        resetAutoSlide(); // 重置自动播放
+                        resetAutoSlide();
                     });
                 });
-                
+
                 // 自动播放
                 function startAutoSlide() {
                     autoSlideInterval = setInterval(() => {
                         currentSlide = (currentSlide + 1) % slides.length;
                         showSlide(currentSlide);
-                    }, 3000); // 3秒切换一次
+                    }, 3500);
                 }
-                
+
                 function resetAutoSlide() {
                     clearInterval(autoSlideInterval);
                     startAutoSlide();
                 }
-                
-                // 鼠标悬停暂停
-                carousel.addEventListener('mouseenter', () => {
-                    clearInterval(autoSlideInterval);
-                });
-                
+
+                // 悬停暂停
+                carousel.addEventListener('mouseenter', () => clearInterval(autoSlideInterval));
                 carousel.addEventListener('mouseleave', startAutoSlide);
-                
-                // 初始化轮播
+
+                // 初始化
                 startAutoSlide();
             }
-            
+
             // 添加到购物车动画
             const addToCartButtons = document.querySelectorAll('.add-to-cart');
             addToCartButtons.forEach(button => {
@@ -910,8 +958,7 @@
                     e.stopPropagation();
                     const card = this.closest('.product-card');
                     const productName = card.querySelector('.product-name').textContent;
-                    
-                    // 创建动画效果
+
                     const cartAnimation = document.createElement('div');
                     cartAnimation.textContent = '✅ 已加入购物车';
                     cartAnimation.style.position = 'fixed';
@@ -926,35 +973,29 @@
                     cartAnimation.style.transform = 'scale(0.8)';
                     cartAnimation.style.opacity = '0';
                     document.body.appendChild(cartAnimation);
-                    
-                    // 动画效果
+
                     setTimeout(() => {
                         cartAnimation.style.transition = 'all 0.3s ease';
                         cartAnimation.style.transform = 'scale(1)';
                         cartAnimation.style.opacity = '1';
-                        
+
                         setTimeout(() => {
                             cartAnimation.style.transform = 'scale(0.8)';
                             cartAnimation.style.opacity = '0';
-                            
-                            setTimeout(() => {
-                                document.body.removeChild(cartAnimation);
-                            }, 300);
+                            setTimeout(() => document.body.removeChild(cartAnimation), 300);
                         }, 2000);
                     }, 10);
-                    
-                    // 按钮反馈
+
                     const originalText = this.textContent;
                     this.textContent = '已加入 ✓';
                     this.style.backgroundColor = '#27ae60';
-                    
                     setTimeout(() => {
                         this.textContent = originalText;
                         this.style.backgroundColor = '';
                     }, 1500);
                 });
             });
-            
+
             // 搜索框回车搜索
             const searchInput = document.querySelector('.search-input');
             if (searchInput) {
@@ -967,37 +1008,11 @@
                     }
                 });
             }
-            
-            // 页面加载时验证图片
-            setTimeout(() => {
-                const images = document.querySelectorAll('img');
-                let loadedCount = 0;
-                let errorCount = 0;
-                
-                images.forEach(img => {
-                    if (img.complete && img.naturalHeight !== 0) {
-                        loadedCount++;
-                    } else {
-                        img.addEventListener('load', () => loadedCount++);
-                        img.addEventListener('error', () => errorCount++);
-                    }
-                });
-                
-                // 2秒后检查结果
-                setTimeout(() => {
-                    if (errorCount > 0) {
-                        console.warn(`⚠️ 检测到 ${errorCount} 个图片加载失败，已尝试自动修复`);
-                    }
-                    if (loadedCount > 0) {
-                        console.log(`✅ 成功加载 ${loadedCount} 个图片`);
-                    }
-                }, 2000);
-            }, 1000);
-            
+
             // 控制台友好提示
-            console.log('%c青粿制造局 v2.0', 'color: #4F7942; font-size: 16px; font-weight: bold;');
-            console.log('%c✅ 页面加载完成！中间主图 + 右侧轮播 + 图片修复已启用', 'color: #27ae60; font-weight: bold;');
-            console.log('%c💡 提示：如果图片显示为占位符，请检查文件名是否正确', 'color: #3498db;');
+            console.log('%c青粿制造局 v3.0', 'color: #4F7942; font-size: 16px; font-weight: bold;');
+            console.log('%c✅ 页面加载完成！中间主图 + 宽300px右侧轮播 + 登录面板已就位', 'color: #27ae60; font-weight: bold;');
+            console.log('%c📁 图片文件名已严格按图二配置：main.png, banner1.jpg, banner2.jpg, banner3.jpg, gift.jpg, snow.png, sunrou.png, aicaofen.png', 'color: #3498db;');
         });
     </script>
 </body>
