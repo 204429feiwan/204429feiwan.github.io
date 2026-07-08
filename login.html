@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登录 - 青粿制造局</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: "Microsoft YaHei", Arial, sans-serif; background-color: #f4f4f4; color: #333; }
+        .container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 10px; }
+        
+        /* 顶部导航 */
+        .top-bar { background-color: #fff; border-bottom: 1px solid #ddd; padding: 10px 0; font-size: 12px; }
+        .top-nav { display: flex; justify-content: space-between; }
+        .top-nav a { margin-left: 10px; color: #999; }
+        
+        .header { background-color: #fff; padding: 15px 0; }
+        .logo { font-size: 28px; color: #4F7942; font-weight: bold; cursor: pointer; }
+        
+        /* 登录表单 */
+        .login-container { display: flex; margin: 40px 0; background-color: #fff; border-radius: 8px; box-shadow: 0 2px 15px rgba(0,0,0,0.1); overflow: hidden; }
+        .login-image { flex: 1; background-color: #4F7942; display: flex; align-items: center; justify-content: center; padding: 20px; }
+        .login-form { flex: 1; padding: 40px; }
+        
+        .login-title { font-size: 28px; color: #333; margin-bottom: 20px; }
+        .login-desc { color: #666; margin-bottom: 30px; line-height: 1.6; }
+        
+        .form-group { margin-bottom: 20px; }
+        .form-label { display: block; margin-bottom: 8px; font-weight: bold; color: #555; }
+        .form-input { width: 100%; padding: 12px 15px; border: 1px solid #ddd; border-radius: 4px; font-size: 16px; transition: border-color 0.3s; }
+        .form-input:focus { border-color: #4F7942; outline: none; box-shadow: 0 0 5px rgba(79, 121, 66, 0.3); }
+        
+        .remember-forgot { display: flex; justify-content: space-between; margin-bottom: 20px; font-size: 14px; }
+        .remember-group { display: flex; align-items: center; }
+        .remember-group input { margin-right: 5px; }
+        .forgot-password { color: #4F7942; text-decoration: none; }
+        
+        .login-btn { width: 100%; padding: 15px; background-color: #4F7942; color: white; border: none; border-radius: 4px; font-size: 18px; font-weight: bold; cursor: pointer; transition: all 0.3s; margin-bottom: 20px; }
+        .login-btn:hover { background-color: #3d5e35; transform: translateY(-2px); }
+        
+        .register-link { text-align: center; color: #666; font-size: 14px; }
+        .register-link a { color: #4F7942; text-decoration: none; font-weight: bold; }
+        .register-link a:hover { text-decoration: underline; }
+        
+        .social-login { margin-top: 30px; text-align: center; }
+        .social-title { color: #999; margin-bottom: 15px; position: relative; }
+        .social-title::before, 
+        .social-title::after { content: ''; position: absolute; top: 50%; width: 30%; height: 1px; background-color: #ddd; }
+        .social-title::before { left: 0; }
+        .social-title::after { right: 0; }
+        
+        .social-buttons { display: flex; justify-content: center; gap: 20px; }
+        .social-btn { width: 50px; height: 50px; border-radius: 50%; background-color: #f0f0f0; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s; }
+        .social-btn:hover { transform: scale(1.1); }
+        .wechat { background-color: #2bad13; color: white; }
+        .alipay { background-color: #00a0e9; color: white; }
+        .qq { background-color: #12b7f5; color: white; }
+        
+        /* 页脚 */
+        .footer { background-color: #333; color: #fff; padding: 40px 0; margin-top: 40px; }
+        .footer-content { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 30px; }
+        .footer-section { flex: 1; min-width: 200px; }
+        .footer-title { font-size: 18px; margin-bottom: 15px; color: #4F7942; }
+        .footer-links { list-style: none; }
+        .footer-links li { margin: 8px 0; }
+        .footer-links a { color: #ccc; text-decoration: none; }
+        .footer-links a:hover { color: #fff; }
+        
+        @media (max-width: 768px) {
+            .login-container { flex-direction: column; }
+            .login-image { height: 200px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- 顶部导航 -->
+    <div class="top-bar">
+        <div class="container top-nav">
+            <div class="left">
+                <a href="index.html">返回首页</a> | 
+                <a href="help.html">帮助中心</a>
+            </div>
+            <div class="right">
+                <a href="register.html">注册账号</a>
+            </div>
+        </div>
+    </div>
+    
+    <header class="header">
+        <div class="container">
+            <div class="logo" onclick="window.location.href='index.html'">青粿制造局</div>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="login-container">
+            <div class="login-image">
+                <div style="color: white; text-align: center; max-width: 400px;">
+                    <h2 style="font-size: 28px; margin-bottom: 15px;">欢迎回来！</h2>
+                    <p style="font-size: 16px; line-height: 1.6; opacity: 0.9;">
+                        登录您的账号，享受专属优惠，查看订单状态，管理收货地址。
+                    </p>
+                    <div style="margin-top: 30px; background: rgba(255,255,255,0.1); padding: 20px; border-radius: 8px;">
+                        <p style="font-size: 14px; margin-bottom: 10px;">💡 小提示：</p>
+                        <p style="font-size: 14px; line-height: 1.5;">首次登录？点击右上角"注册账号"即可快速创建新账户。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="login-form">
+                <h1 class="login-title">用户登录</h1>
+                <p class="login-desc">请输入您的账号信息，快速登录</p>
+                
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label class="form-label" for="username">手机号/邮箱</label>
+                        <input type="text" id="username" class="form-input" placeholder="请输入手机号或邮箱" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="password">密码</label>
+                        <input type="password" id="password" class="form-input" placeholder="请输入密码" required>
+                    </div>
+                    
+                    <div class="remember-forgot">
+                        <div class="remember-group">
+                            <input type="checkbox" id="remember" name="remember">
+                            <label for="remember">记住我</label>
+                        </div>
+                        <a href="#" class="forgot-password">忘记密码？</a>
+                    </div>
+                    
+                    <button type="button" class="login-btn" onclick="handleLogin()">登录</button>
+                    
+                    <div class="register-link">
+                        还没有账号？<a href="register.html">立即注册</a>
+                    </div>
+                    
+                    <div class="social-login">
+                        <div class="social-title">其他登录方式</div>
+                        <div class="social-buttons">
+                            <div class="social-btn wechat" title="微信登录">wechat</div>
+                            <div class="social-btn alipay" title="支付宝登录">alipay</div>
+                            <div class="social-btn qq" title="QQ登录">qq</div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 页脚 -->
+    <div class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3 class="footer-title">关于我们</h3>
+                    <ul class="footer-links">
+                        <li><a href="about.html">品牌故事</a></li>
+                        <li><a href="about.html#craftsmanship">匠心工艺</a></li>
+                        <li><a href="contact.html">联系我们</a></li>
+                        <li><a href="join.html">加入我们</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3 class="footer-title">客户服务</h3>
+                    <ul class="footer-links">
+                        <li><a href="help.html">帮助中心</a></li>
+                        <li><a href="shipping.html">配送说明</a></li>
+                        <li><a href="after-sales.html">售后服务</a></li>
+                        <li><a href="faq.html">常见问题</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3 class="footer-title">购物指南</h3>
+                    <ul class="footer-links">
+                        <li><a href="guide.html">购物流程</a></li>
+                        <li><a href="payment.html">支付方式</a></li>
+                        <li><a href="return.html">退换货政策</a></li>
+                        <li><a href="privacy.html">隐私政策</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3 class="footer-title">关注我们</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">微信公众号</a></li>
+                        <li><a href="#">微博</a></li>
+                        <li><a href="#">小红书</a></li>
+                        <li><a href="#">抖音</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function handleLogin() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            if (!username || !password) {
+                alert('请输入账号和密码');
+                return;
+            }
+            
+            // 简单的验证逻辑（实际项目中需要后端验证）
+            if (username === '13800138000' && password === '123456') {
+                alert('登录成功！');
+                window.location.href = 'index.html';
+            } else {
+                alert('账号或密码错误，请重新输入');
+            }
+        }
+        
+        // 回车键登录
+        document.getElementById('password').addEventListener('keyup', function(e) {
+            if (e.key === 'Enter') {
+                handleLogin();
+            }
+        });
+    </script>
+</body>
+</html>

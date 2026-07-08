@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>注册 - 青粿制造局</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: "Microsoft YaHei", Arial, sans-serif; background-color: #f4f4f4; color: #333; }
+        .container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 10px; }
+        a { text-decoration: none; color: #4F7942; }
+
+        .top-bar { background-color: #fff; border-bottom: 1px solid #ddd; padding: 10px 0; font-size: 12px; }
+        .top-nav { display: flex; justify-content: space-between; }
+        .top-nav a { margin-left: 10px; color: #999; }
+
+        .header { background-color: #fff; padding: 15px 0; }
+        .logo { font-size: 28px; color: #4F7942; font-weight: bold; cursor: pointer; }
+
+        .register-container { display: flex; margin: 40px auto; max-width: 900px; background: #fff; border-radius: 8px; box-shadow: 0 2px 15px rgba(0,0,0,0.1); overflow: hidden; }
+        .register-image { flex: 1; background: linear-gradient(135deg, #4F7942, #3d5e35); display: flex; align-items: center; justify-content: center; padding: 30px; min-width: 280px; }
+        .register-form { flex: 1.2; padding: 40px; }
+
+        .form-title { font-size: 26px; color: #333; margin-bottom: 8px; }
+        .form-desc { color: #666; margin-bottom: 25px; font-size: 14px; }
+
+        .form-group { margin-bottom: 18px; }
+        .form-label { display: block; margin-bottom: 6px; font-weight: bold; color: #555; font-size: 14px; }
+        .form-input { width: 100%; padding: 10px 12px; border: 1px solid #ddd; border-radius: 4px; font-size: 15px; transition: border-color 0.3s; }
+        .form-input:focus { border-color: #4F7942; outline: none; box-shadow: 0 0 4px rgba(79,121,66,0.3); }
+        .form-row { display: flex; gap: 12px; }
+        .form-row .form-group { flex: 1; }
+
+        .sms-btn { padding: 10px 16px; background: #4F7942; color: #fff; border: none; border-radius: 4px; cursor: pointer; font-size: 13px; white-space: nowrap; }
+        .sms-btn:disabled { background: #ccc; cursor: not-allowed; }
+
+        .agreement { font-size: 13px; color: #666; margin: 15px 0; }
+        .agreement input { margin-right: 5px; }
+
+        .register-btn { width: 100%; padding: 13px; background: #4F7942; color: #fff; border: none; border-radius: 4px; font-size: 17px; font-weight: bold; cursor: pointer; transition: all 0.3s; }
+        .register-btn:hover { background: #3d5e35; }
+
+        .login-link { text-align: center; margin-top: 15px; font-size: 14px; color: #666; }
+        .login-link a { font-weight: bold; }
+        .login-link a:hover { text-decoration: underline; }
+
+        @media (max-width: 768px) {
+            .register-container { flex-direction: column; }
+            .register-image { padding: 30px 20px; min-width: auto; }
+            .form-row { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+        <div class="container top-nav">
+            <div class="left"><a href="index.html" style="color:#999">返回首页</a></div>
+            <div class="right"><a href="login.html" style="color:#999">已有账号？去登录</a></div>
+        </div>
+    </div>
+
+    <header class="header">
+        <div class="container">
+            <div class="logo" onclick="window.location.href='index.html'">青粿制造局</div>
+        </div>
+    </header>
+
+    <div class="register-container">
+        <div class="register-image">
+            <div style="color:#fff; text-align:center;">
+                <h2 style="font-size:24px; margin-bottom:12px;">🎉 加入我们</h2>
+                <p style="font-size:14px; line-height:1.6; opacity:0.9;">注册即享首单9折优惠<br>新品上线第一时间通知<br>专属会员价，省更多</p>
+            </div>
+        </div>
+
+        <div class="register-form">
+            <h1 class="form-title">创建账号</h1>
+            <p class="form-desc">填写以下信息，快速完成注册</p>
+
+            <form id="registerForm">
+                <div class="form-group">
+                    <label class="form-label">手机号</label>
+                    <input type="tel" class="form-input" id="phone" placeholder="请输入11位手机号" maxlength="11" required>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">短信验证码</label>
+                        <input type="text" class="form-input" id="smsCode" placeholder="请输入验证码" required>
+                    </div>
+                    <div class="form-group" style="display:flex;align-items:flex-end;">
+                        <button type="button" class="sms-btn" id="sendSmsBtn" onclick="sendSms()">获取验证码</button>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">设置密码</label>
+                    <input type="password" class="form-input" id="password" placeholder="6-20位字母或数字组合" minlength="6" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">确认密码</label>
+                    <input type="password" class="form-input" id="confirmPwd" placeholder="请再次输入密码" minlength="6" required>
+                </div>
+
+                <div class="agreement">
+                    <input type="checkbox" id="agree" required>
+                    <label for="agree">我已阅读并同意 <a href="privacy.html">《用户协议》</a> 和 <a href="privacy.html">《隐私政策》</a></label>
+                </div>
+
+                <button type="button" class="register-btn" onclick="handleRegister()">立即注册</button>
+            </form>
+
+            <div class="login-link">
+                已有账号？<a href="login.html">立即登录</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let smsTimer = null;
+        let smsCountdown = 0;
+
+        function sendSms() {
+            const phone = document.getElementById('phone').value;
+            if (!/^1[3-9]\d{9}$/.test(phone)) {
+                alert('请输入正确的手机号');
+                return;
+            }
+            if (smsCountdown > 0) return;
+
+            smsCountdown = 60;
+            const btn = document.getElementById('sendSmsBtn');
+            btn.disabled = true;
+            btn.textContent = smsCountdown + 's后重发';
+            alert('验证码已发送至 ' + phone + '（演示模式：验证码为 123456）');
+
+            smsTimer = setInterval(() => {
+                smsCountdown--;
+                if (smsCountdown <= 0) {
+                    clearInterval(smsTimer);
+                    btn.disabled = false;
+                    btn.textContent = '获取验证码';
+                } else {
+                    btn.textContent = smsCountdown + 's后重发';
+                }
+            }, 1000);
+        }
+
+        function handleRegister() {
+            const phone = document.getElementById('phone').value;
+            const smsCode = document.getElementById('smsCode').value;
+            const password = document.getElementById('password').value;
+            const confirmPwd = document.getElementById('confirmPwd').value;
+            const agree = document.getElementById('agree').checked;
+
+            if (!phone || !smsCode || !password || !confirmPwd) {
+                alert('请填写所有必填项');
+                return;
+            }
+            if (password !== confirmPwd) {
+                alert('两次输入的密码不一致');
+                return;
+            }
+            if (password.length < 6) {
+                alert('密码长度至少6位');
+                return;
+            }
+            if (!agree) {
+                alert('请先阅读并同意用户协议');
+                return;
+            }
+
+            // 演示模式：验证码为123456
+            if (smsCode !== '123456') {
+                alert('验证码错误，请重新输入');
+                return;
+            }
+
+            alert('注册成功！即将跳转到首页...');
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>

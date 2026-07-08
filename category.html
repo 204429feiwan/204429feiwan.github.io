@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>产品中心 - 青粿制造局</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: "Microsoft YaHei", Arial, sans-serif; background-color: #f4f4f4; color: #333; }
+        .container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 10px; }
+        a { text-decoration: none; color: #333; }
+
+        .top-bar { background-color: #fff; border-bottom: 1px solid #ddd; padding: 10px 0; font-size: 12px; }
+        .top-nav { display: flex; justify-content: space-between; }
+        .top-nav a { margin-left: 10px; color: #999; }
+
+        .header { background-color: #fff; padding: 15px 0; }
+        .logo { font-size: 28px; color: #4F7942; font-weight: bold; cursor: pointer; }
+
+        .nav-menu { background-color: #4F7942; color: #fff; }
+        .nav-list { display: flex; flex-wrap: wrap; gap: 10px; list-style: none; padding: 0; }
+        .nav-item { padding: 10px 15px; cursor: pointer; font-weight: bold; font-size: 0.95rem; }
+        .nav-item:hover { background-color: #3d5e35; }
+
+        .page-title { font-size: 24px; color: #4F7942; margin: 20px 0; padding-left: 10px; border-left: 5px solid #4F7942; }
+
+        .category-layout { display: flex; gap: 20px; margin-bottom: 40px; flex-wrap: wrap; }
+
+        .filter-sidebar { width: 220px; background-color: #fff; padding: 20px; border-radius: 8px; flex-shrink: 0; }
+        .filter-group { margin-bottom: 20px; }
+        .filter-title { font-weight: bold; font-size: 16px; margin-bottom: 10px; color: #333; }
+        .filter-option { padding: 6px 0; cursor: pointer; font-size: 14px; color: #666; transition: color 0.2s; }
+        .filter-option:hover, .filter-option.active { color: #4F7942; font-weight: bold; }
+
+        .product-area { flex: 1; min-width: 300px; }
+        .product-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; background: #fff; padding: 15px; border-radius: 8px; }
+        .sort-option { padding: 5px 12px; cursor: pointer; font-size: 14px; color: #666; border-radius: 4px; transition: all 0.2s; }
+        .sort-option:hover, .sort-option.active { background-color: #4F7942; color: #fff; }
+
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 15px; }
+        .product-card { background: #fff; border-radius: 8px; overflow: hidden; transition: box-shadow 0.3s, transform 0.3s; cursor: pointer; }
+        .product-card:hover { box-shadow: 0 5px 20px rgba(0,0,0,0.1); transform: translateY(-3px); }
+        .product-img { width: 100%; height: 200px; object-fit: cover; background-color: #f8f8f8; }
+        .product-tag { position: absolute; top: 10px; left: 10px; background: #e67e22; color: #fff; padding: 2px 8px; border-radius: 4px; font-size: 12px; }
+        .product-info { padding: 12px; position: relative; }
+        .product-name { font-size: 14px; line-height: 1.4; margin-bottom: 8px; min-height: 40px; }
+        .product-price { font-size: 20px; color: #e67e22; font-weight: bold; }
+        .product-original { text-decoration: line-through; color: #999; font-size: 12px; margin-left: 8px; }
+        .product-sales { font-size: 12px; color: #999; margin-top: 5px; }
+        .add-cart-btn { display: block; width: 100%; padding: 8px; background: #4F7942; color: #fff; border: none; border-radius: 4px; cursor: pointer; margin-top: 10px; font-size: 14px; transition: background 0.2s; }
+        .add-cart-btn:hover { background: #3d5e35; }
+
+        .footer { background-color: #333; color: #fff; padding: 40px 0; margin-top: 40px; }
+        .footer-content { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 30px; }
+        .footer-section { flex: 1; min-width: 200px; }
+        .footer-title { font-size: 18px; margin-bottom: 15px; color: #4F7942; }
+        .footer-links { list-style: none; }
+        .footer-links li { margin: 8px 0; }
+        .footer-links a { color: #ccc; text-decoration: none; }
+        .footer-links a:hover { color: #fff; }
+
+        @media (max-width: 768px) {
+            .category-layout { flex-direction: column; }
+            .filter-sidebar { width: 100%; }
+            .product-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
+        }
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+        <div class="container top-nav">
+            <div class="left"><a href="index.html">返回首页</a></div>
+            <div class="right">
+                <a href="login.html">登录</a>
+                <a href="register.html">注册</a>
+                <a href="cart.html">购物车</a>
+            </div>
+        </div>
+    </div>
+
+    <header class="header">
+        <div class="container">
+            <div class="logo" onclick="window.location.href='index.html'">青粿制造局</div>
+        </div>
+    </header>
+
+    <nav class="nav-menu">
+        <div class="container">
+            <ul class="nav-list">
+                <li class="nav-item" onclick="window.location.href='index.html'">首页</li>
+                <li class="nav-item" onclick="window.location.href='category.html'">全部商品</li>
+                <li class="nav-item" onclick="window.location.href='about.html'">品牌故事</li>
+                <li class="nav-item" onclick="window.location.href='about.html#craftsmanship'">匠心工艺</li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h2 class="page-title" id="categoryTitle">全部商品</h2>
+
+        <div class="category-layout">
+            <aside class="filter-sidebar">
+                <div class="filter-group">
+                    <div class="filter-title">产品分类</div>
+                    <div class="filter-option active" onclick="filterCategory('全部商品', this)">全部商品</div>
+                    <div class="filter-option" onclick="filterCategory('艾草系列', this)">艾草系列</div>
+                    <div class="filter-option" onclick="filterCategory('咸味青粿', this)">咸味青粿</div>
+                    <div class="filter-option" onclick="filterCategory('甜味青粿', this)">甜味青粿</div>
+                    <div class="filter-option" onclick="filterCategory('礼盒装', this)">礼盒装</div>
+                </div>
+                <div class="filter-group">
+                    <div class="filter-title">价格区间</div>
+                    <div class="filter-option" onclick="filterPrice('all', this)">全部价格</div>
+                    <div class="filter-option" onclick="filterPrice('0-30', this)">¥0 - ¥30</div>
+                    <div class="filter-option" onclick="filterPrice('30-50', this)">¥30 - ¥50</div>
+                    <div class="filter-option" onclick="filterPrice('50+', this)">¥50以上</div>
+                </div>
+            </aside>
+
+            <div class="product-area">
+                <div class="product-header">
+                    <span id="resultCount">共 8 件商品</span>
+                    <div>
+                        <span class="sort-option active" onclick="sortProducts('default', this)">综合排序</span>
+                        <span class="sort-option" onclick="sortProducts('price-asc', this)">价格从低到高</span>
+                        <span class="sort-option" onclick="sortProducts('price-desc', this)">价格从高到低</span>
+                        <span class="sort-option" onclick="sortProducts('sales', this)">销量优先</span>
+                    </div>
+                </div>
+
+                <div class="product-grid" id="productGrid"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3 class="footer-title">关于我们</h3>
+                    <ul class="footer-links">
+                        <li><a href="about.html">品牌故事</a></li>
+                        <li><a href="about.html#craftsmanship">匠心工艺</a></li>
+                        <li><a href="contact.html">联系我们</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3 class="footer-title">客户服务</h3>
+                    <ul class="footer-links">
+                        <li><a href="help.html">帮助中心</a></li>
+                        <li><a href="shipping.html">配送说明</a></li>
+                        <li><a href="after-sales.html">售后服务</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3 class="footer-title">关注我们</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">微信公众号</a></li>
+                        <li><a href="#">微博</a></li>
+                        <li><a href="#">小红书</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const products = [
+            { id: 1, name: "【春日限定】知味观雪菜笋肉青粿 300g/6只装", price: 29.9, original: 39.9, category: "咸味青粿", sales: 2580, img: "img/雪菜笋肉.png", tag: "热卖" },
+            { id: 2, name: "笋肉三丁馅青粿 传统江南风味 300g/6只", price: 35.5, original: 45.0, category: "咸味青粿", sales: 1820, img: "img/笋肉三丁.png", tag: "新品" },
+            { id: 3, name: "青粿礼盒装 手工制作 送礼佳品 12只装", price: 88.0, original: 108.0, category: "礼盒装", sales: 960, img: "img/礼盒装.jpg", tag: "礼盒" },
+            { id: 4, name: "艾草精粉 自制青粿必备原料 100g", price: 22.8, original: 28.0, category: "艾草系列", sales: 3200, img: "img/艾草粉.png", tag: "" },
+            { id: 5, name: "豆沙馅甜味青粿 经典红豆沙 300g/6只", price: 26.9, original: 32.0, category: "甜味青粿", sales: 2150, img: "img/雪菜笋肉.png", tag: "经典" },
+            { id: 6, name: "野菜香干馅青粿 清新时令 300g/6只", price: 32.0, original: 38.0, category: "咸味青粿", sales: 1450, img: "img/笋肉三丁.png", tag: "" },
+            { id: 7, name: "芝麻花生馅甜味青粿 香浓可口 300g/6只", price: 28.5, original: 35.0, category: "甜味青粿", sales: 1680, img: "img/礼盒装.jpg", tag: "" },
+            { id: 8, name: "艾草青粿DIY套装 含艾草粉+糯米粉+教程", price: 45.0, original: 55.0, category: "艾草系列", sales: 780, img: "img/艾草粉.png", tag: "DIY" }
+        ];
+
+        let currentCategory = '全部商品';
+        let currentPriceFilter = 'all';
+        let currentSort = 'default';
+
+        function getUrlParam(name) {
+            const url = new URLSearchParams(window.location.search);
+            return url.get(name);
+        }
+
+        function renderProducts() {
+            let filtered = [...products];
+
+            if (currentCategory !== '全部商品') {
+                filtered = filtered.filter(p => p.category === currentCategory);
+            }
+
+            if (currentPriceFilter === '0-30') {
+                filtered = filtered.filter(p => p.price <= 30);
+            } else if (currentPriceFilter === '30-50') {
+                filtered = filtered.filter(p => p.price > 30 && p.price <= 50);
+            } else if (currentPriceFilter === '50+') {
+                filtered = filtered.filter(p => p.price > 50);
+            }
+
+            if (currentSort === 'price-asc') {
+                filtered.sort((a, b) => a.price - b.price);
+            } else if (currentSort === 'price-desc') {
+                filtered.sort((a, b) => b.price - a.price);
+            } else if (currentSort === 'sales') {
+                filtered.sort((a, b) => b.sales - a.sales);
+            }
+
+            document.getElementById('resultCount').textContent = `共 ${filtered.length} 件商品`;
+            document.getElementById('categoryTitle').textContent = currentCategory;
+
+            const grid = document.getElementById('productGrid');
+            grid.innerHTML = filtered.map(p => `
+                <div class="product-card" onclick="window.location.href='product.html?id=${p.id}'" style="position:relative">
+                    ${p.tag ? `<span class="product-tag">${p.tag}</span>` : ''}
+                    <img src="${p.img}" alt="${p.name}" class="product-img" onerror="this.style.background='#e8f5e9'; this.style.display='flex'; this.style.alignItems='center'; this.style.justifyContent='center'; this.alt='暂无图片'">
+                    <div class="product-info">
+                        <div class="product-name">${p.name}</div>
+                        <div class="product-price">¥${p.price.toFixed(1)}<span class="product-original">¥${p.original.toFixed(1)}</span></div>
+                        <div class="product-sales">已售 ${p.sales} 件</div>
+                        <button class="add-cart-btn" onclick="event.stopPropagation(); addToCart(${p.id})">加入购物车</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function filterCategory(cat, el) {
+            currentCategory = cat;
+            document.querySelectorAll('.filter-sidebar .filter-option').forEach(o => o.classList.remove('active'));
+            el.classList.add('active');
+            renderProducts();
+        }
+
+        function filterPrice(range, el) {
+            currentPriceFilter = range;
+            document.querySelectorAll('.filter-group:last-child .filter-option').forEach(o => o.classList.remove('active'));
+            el.classList.add('active');
+            renderProducts();
+        }
+
+        function sortProducts(type, el) {
+            currentSort = type;
+            document.querySelectorAll('.sort-option').forEach(o => o.classList.remove('active'));
+            el.classList.add('active');
+            renderProducts();
+        }
+
+        function addToCart(id) {
+            alert('已成功加入购物车！');
+        }
+
+        // 从URL读取分类参数
+        const catParam = getUrlParam('name');
+        if (catParam) {
+            currentCategory = catParam;
+        }
+
+        renderProducts();
+    </script>
+</body>
+</html>
